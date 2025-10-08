@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.superhero"
+    namespace = "com.example.freegames"
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.example.superhero"
+        applicationId = "com.example.freegames"
         minSdk = 28
         targetSdk = 36
         versionCode = 1
@@ -33,12 +33,17 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
+
+    buildFeatures{
+        viewBinding= true
+    }
 }
 
 dependencies {
 // Retrofit
     implementation("com.squareup.retrofit2:retrofit:3.0.0")
     implementation("com.squareup.retrofit2:converter-gson:3.0.0")
+    implementation("com.squareup.picasso:picasso:2.8")
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

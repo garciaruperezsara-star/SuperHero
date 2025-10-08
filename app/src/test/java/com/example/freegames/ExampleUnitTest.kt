@@ -1,4 +1,4 @@
-package com.example.superhero
+package com.example.freegames
 
 import org.junit.Test
 
