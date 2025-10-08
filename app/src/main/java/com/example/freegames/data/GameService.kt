@@ -16,7 +16,7 @@ interface GameService {
     companion object{
         fun getInstance(): GameService{
             val retrofit = Retrofit.Builder()
-                .baseUrl("http://www.freetogame.com/api./")
+                .baseUrl("https://www.freetogame.com/api/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
             return retrofit.create(GameService::class.java)

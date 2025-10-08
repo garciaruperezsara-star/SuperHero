@@ -9,7 +9,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.freegames.R
 import com.example.freegames.adapters.GameAdapter
@@ -20,12 +19,14 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-lateinit var binding: ActivityMainBinding
-lateinit var adapter: GameAdapter
-var gameList : List<Game> = emptyList()
-
 
 class MainActivity : AppCompatActivity() {
+
+    lateinit var binding: ActivityMainBinding
+    lateinit var adapter: GameAdapter
+    var filteredGameList: List<Game> = emptyList()
+    var originalGameList: List<Game> = emptyList()
+    var gameList : List<Game> = emptyList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,15 +38,14 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        adapter = GameAdapter(gameList) { position ->
-            val game = gameList[position.toInt()]
+        adapter = GameAdapter(gameList) { gameId ->
             val intent = Intent(this, DetailActivity::class.java)
-            intent.putExtra("GAME_ID", game.id)
+            intent.putExtra("GAME_ID", gameId)
             startActivity(intent)
         }
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager= LinearLayoutManager(this)
-        searchGames("a")
+        getGameList()
 
     }
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -55,25 +55,26 @@ class MainActivity : AppCompatActivity() {
 
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
-                searchGames(query)
-                return true
+                return false
             }
             override fun onQueryTextChange(newText: String): Boolean {
-                return false
+                filteredGameList = originalGameList.filter { it.title.contains(newText, true) }
+                adapter.updateItems(filteredGameList)
+                return true
             }
         })
         return true
     }
-     fun searchGames(query: String) {
+    fun getGameList() {
         CoroutineScope(Dispatchers.IO).launch {
-            try{
-            val service = GameService.getInstance()
-            gameList = listOf(service.getGameById(query))
-            CoroutineScope(Dispatchers.Main).launch {
-                adapter.updateItems(gameList)
-                Log.i("API", "$gameList")
-            }
-            } catch (e: Exception){
+            try {
+                val service = GameService.getInstance()
+                originalGameList = service.getAllGames()
+                filteredGameList = originalGameList
+                CoroutineScope(Dispatchers.Main).launch {
+                    adapter.updateItems(filteredGameList)
+                }
+            } catch (e: Exception) {
                 e.printStackTrace()
             }
         }
