@@ -21,7 +21,8 @@ import kotlinx.coroutines.launch
 
 
 class MainActivity : AppCompatActivity() {
-
+//Todo make recycle view for categories
+    // todo add win/ web icon
     lateinit var binding: ActivityMainBinding
     lateinit var adapter: GameAdapter
     var filteredGameList: List<Game> = emptyList()

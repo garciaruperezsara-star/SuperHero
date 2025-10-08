@@ -42,10 +42,11 @@ class DetailActivity : AppCompatActivity() {
         binding.gameDescription.text = game.description
         binding.gameName.text = game.title
         Picasso.get().load(game.thumbnail).into(binding.gameDetailImageView)
-//        binding.playButton.setOnClickListener {
-//            val browserIntent = Intent(Intent.ACTION_VIEW, game.gameUrl.toUri())
-//            startActivity(browserIntent)
-//        }
+        binding.goToButton.setOnClickListener {
+            //TODO scrolls dont help to save buttom from disapears
+            val browserIntent = Intent(Intent.ACTION_VIEW, game.gameUrl.toUri())
+            startActivity(browserIntent)
+        }
     }
 
     fun getGame(id: String) {
