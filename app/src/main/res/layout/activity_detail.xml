@@ -3,45 +3,82 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
-    android:theme="@style/Theme.FreeGamesDetail"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:theme="@style/Theme.FreeGamesDetail"
     tools:context=".activities.DetailActivity">
+
     <ImageView
         android:id="@+id/gameDetail_ImageView"
         android:layout_width="match_parent"
         android:layout_height="230dp"
-        android:src="@drawable/ic_launcher_background"
         android:layout_gravity="center"
-        android:scaleType="centerCrop"/>
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_launcher_background" />
 
     <TextView
         android:id="@+id/game_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="game"
-        android:textStyle="bold"
+        android:layout_gravity="center"
+        android:layout_margin="20dp"
         android:textSize="30sp"
-        android:layout_gravity="center"/>
-<ScrollView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+        android:textStyle="bold"
+        tools:text="game" />
 
-    <TextView
-        android:id="@+id/game_description"
+    <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_margin="10dp"
         android:layout_height="wrap_content"
-        tools:text="aaaaaaa"/>
+        android:layout_gravity="center"
+        android:orientation="horizontal">
 
-</ScrollView>
+        <TextView
+            android:id="@+id/game_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
+            android:textSize="15sp"
+            android:textStyle="italic"
+            tools:text="date"
+            android:textColor="@color/grey"/>
+
+        <TextView
+            android:id="@+id/game_dev"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
+            android:textSize="15sp"
+            android:textStyle="italic"
+            tools:text="dev"
+            android:textColor="@color/grey"/>
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:padding="20dp">
+
+        <TextView
+            android:id="@+id/game_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="aaaaaaa" />
+
+    </ScrollView>
 
     <Button
         android:id="@+id/goToButton"
-        android:layout_width="wrap_content"
+        android:backgroundTint="@color/result"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:layout_width="match_parent"
+        android:layout_marginBottom="10dp"
         android:layout_height="wrap_content"
-        android:text="Get"
-        android:layout_gravity="center|bottom"/>
+        android:layout_gravity="center|bottom"
+        android:text="Get" />
+
 
 </LinearLayout>

@@ -41,6 +41,8 @@ class DetailActivity : AppCompatActivity() {
     fun loadData() {
         binding.gameDescription.text = game.description
         binding.gameName.text = game.title
+        binding.gameDate.text= game.releaseDate
+        binding.gameDev.text= game.developer
         Picasso.get().load(game.thumbnail).into(binding.gameDetailImageView)
         binding.goToButton.setOnClickListener {
             //TODO scrolls dont help to save buttom from disapears

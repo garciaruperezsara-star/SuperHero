@@ -1,11 +1,15 @@
 package com.example.freegames.adapters
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.freegames.data.Game
 import com.example.freegames.databinding.ItemGameBinding
 import com.squareup.picasso.Picasso
+import com.example.freegames.R
+import kotlin.reflect.KVisibility
+
 
 class GameAdapter(
     var items: List<Game>,
@@ -37,9 +41,13 @@ class GameViewHolder(val binding: ItemGameBinding) : RecyclerView.ViewHolder(bin
 
         binding.gameImageView.setOnClickListener { onClickListener(game.id) }
         binding.gameNameTextView.text= game.title
+        binding.gameGenreTextView.text= game.genre
+        setIcon(game.platform)
         Picasso.get().load(game.thumbnail).into(binding.gameImageView)
-
     }
-
-
+    fun setIcon(type: String?){
+        if (type == "PC (Windows)") binding.gamePlatform.setImageResource(R.drawable.ic_windows)
+        else if (type == "Web Browser") binding.gamePlatform.setImageResource(R.drawable.ic_web)
+        else binding.gamePlatform.setImageResource(R.drawable.ic_no)
+    }
 }
